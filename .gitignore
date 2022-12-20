@@ -2,3 +2,6 @@ Data
 /Data
 venv_tut
 venv
+.ipynb_checkpoints
+.pickle
+*.pickle
