@@ -5,3 +5,7 @@ venv
 .ipynb_checkpoints
 .pickle
 *.pickle
+*.gephi
+.gephi
+.gexf
+*.gexf
