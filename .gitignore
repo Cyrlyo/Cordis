@@ -9,3 +9,5 @@ venv
 .gephi
 .gexf
 *.gexf
+env
+/env
