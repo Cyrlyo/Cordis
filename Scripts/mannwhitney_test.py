@@ -21,9 +21,8 @@ def mannwhitney_u_test(df: DataFrame) -> Dict:
         label_df = DataFrame(columns=['col', 'mean_labels', 'mean_other', 'pvalue'])
         
         for col in column_list:
-            
-            stat = [stats.mannwhitneyu(df_1[col], df_2[col])]
-            pvalue = np.mean([x.pvalue for x in stat])
+
+            stat, pvalue = stats.mannwhitneyu(df_1[col], df_2[col])
 
             new_row = DataFrame({
                 "col": [col],
@@ -38,3 +37,20 @@ def mannwhitney_u_test(df: DataFrame) -> Dict:
         result[label] = label_df
         
     return result
+
+df = pd.read_csv("./Data/CSV/projects_tmp.csv")
+
+columns_name=['acronym', 'status', 'title', 'startDate', 'endDate', 'totalCost',
+       'ecMaxContribution', 'legalBasis', 'topics', 'ecSignatureDate',
+       'frameworkProgramme', 'masterCall', 'subCall', 'fundingScheme',
+       'nature', 'objective', 'contentUpdateDate', 'rcn', 'grantDoi']
+
+for col in columns_name:
+    df[str(col)] = df[str(col)].astype("category")
+
+res = mannwhitney_u_test(df.drop(columns=['id', 'acronym', 'status', 'title', 'startDate', 'endDate', 'totalCost',
+       'ecMaxContribution', 'legalBasis', 'topics', 'ecSignatureDate',
+       'frameworkProgramme', 'masterCall', 'subCall', 'fundingScheme',
+       'nature', 'objective', 'contentUpdateDate', 'rcn', 'grantDoi']))
+
+print(res[0])
