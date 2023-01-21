@@ -3,7 +3,6 @@ import numpy as np
 from scipy import stats
 from typing import Dict
 from pandas import DataFrame
-from sklearn import preprocessing
 
 def mannwhitney_u_test(df: DataFrame) -> Dict:
         
