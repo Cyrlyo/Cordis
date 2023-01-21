@@ -11,3 +11,4 @@ venv
 *.gexf
 env
 /env
+__pycache__
