@@ -11,12 +11,12 @@ def mannwhitney_u_test(df: DataFrame) -> Dict:
 
     result = {}
 
-    for label in np.sort(np.unique(df["New_Community_Name"].values)):
+    for label in np.unique(df["New_Community_Name"].values):
         
         print(f"Community: {label}")
         
         df_1 = df[df["New_Community_Name"] == label]
-        df_2= df[df["New_Community_Name"] != label]
+        df_2 = df[df["New_Community_Name"] != label]
         
         label_df = DataFrame(columns=['col', 'mean_labels', 'mean_other', 'pvalue'])
         
