@@ -41,7 +41,7 @@ def create_corpus(dictionary,processed_data):
 
 def train_lda_model(corpus,dictionary):
     # Entraîner le modèle LDA
-    ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word=dictionary, passes=15)
+    ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=5, id2word=dictionary, passes=15)
     return ldamodel
 
 def topicModeling(data: DataFrame, column_name: str):
