@@ -4,7 +4,7 @@ from gensim.parsing.preprocessing import STOPWORDS
 from nltk.stem import WordNetLemmatizer, SnowballStemmer
 from nltk.stem.porter import *
 import numpy as np
-from typing import List
+from typing import List, Dict
 import nltk
 from pandas import DataFrame
 
@@ -18,7 +18,7 @@ def preprocess_data(data: DataFrame, column_name: str) -> List[str]:
         processed_data.append(preprocess(text))
     return processed_data
     
-def preprocess(text):
+def preprocess(text) -> List[str]:
     result = []
     for token in gensim.utils.simple_preprocess(text):
         if token not in gensim.parsing.preprocessing.STOPWORDS and len(token) > 3:
@@ -29,7 +29,7 @@ def lemmatize_stemming(text: str):
     stemmer = SnowballStemmer("english")
     return stemmer.stem(WordNetLemmatizer().lemmatize(text, pos='v'))
 
-def create_dictionnary(processed_data):
+def create_dictionnary(processed_data: List) -> Dict:
     # Créer un dictionnaire à partir des données pré-traitées
     dictionary = gensim.corpora.Dictionary(processed_data)
     return dictionary
@@ -47,8 +47,8 @@ def train_lda_model(corpus,dictionary):
 def topicModeling(data: DataFrame, column_name: str):
     processed_data = preprocess_data(data, column_name)
     dictionary = create_dictionnary(processed_data)
-    corpus = create_corpus(dictionary,processed_data)
-    ldamodel = train_lda_model(corpus,dictionary)
+    corpus = create_corpus(dictionary, processed_data)
+    ldamodel = train_lda_model(corpus, dictionary)
     for i, row in data.iterrows():
         topic = ldamodel.get_document_topics(dictionary.doc2bow(processed_data[i]))
         topic_word = ldamodel.show_topic(topic[0][0])[0][0]
