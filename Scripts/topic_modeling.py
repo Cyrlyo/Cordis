@@ -34,12 +34,12 @@ def create_dictionnary(processed_data: List) -> Dict:
     dictionary = gensim.corpora.Dictionary(processed_data)
     return dictionary
 
-def create_corpus(dictionary,processed_data):
+def create_corpus(dictionary, processed_data) -> List:
     # Créer un corpus à partir des données pré-traitées
     corpus = [dictionary.doc2bow(doc) for doc in processed_data]
     return corpus
 
-def train_lda_model(corpus,dictionary):
+def train_lda_model(corpus, dictionary):
     # Entraîner le modèle LDA
     ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=5, id2word=dictionary, passes=15)
     return ldamodel
@@ -53,5 +53,5 @@ def topicModeling(data: DataFrame, column_name: str):
         topic = ldamodel.get_document_topics(dictionary.doc2bow(processed_data[i]))
         topic_word = ldamodel.show_topic(topic[0][0])[0][0]
         # topic_word = ldamodel.show_topic(topic)
-        print("Texte : ", row[column_name])
-        print("Topic : ", topic_word)
+        print("Texte: ", row[column_name])
+        print("Topic: ", topic_word)
