@@ -5,7 +5,8 @@ from typing import Dict
 from pandas import DataFrame
 
 def mannwhitney_u_test(df: DataFrame) -> Dict:
-        
+
+#TODO: tu sais quoi faire
     column_list = df.columns.drop(["Community", "New_Community", "New_Community_Name"])
 
     result = {}
