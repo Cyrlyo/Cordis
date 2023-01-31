@@ -10,5 +10,9 @@ venv
 .gexf
 *.gexf
 env
+.docx
+*.docx
+.doc
+*.doc
 /env
 __pycache__
