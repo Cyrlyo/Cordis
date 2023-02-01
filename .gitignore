@@ -16,3 +16,7 @@ env
 *.doc
 /env
 __pycache__
+*.png
+.png
+*.PNG
+.PNG
