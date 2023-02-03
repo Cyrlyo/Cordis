@@ -3,7 +3,7 @@
 ######################## I - Nettoyage des donn?es #############################
 #a - Importation du fichier csv
 getwd()
-setwd("../")
+setwd("../Desktop/Python/Cours/Cordis")
 data <- read.csv("./Data/CSV/project_tmp.csv", header = TRUE, sep=",")
 attach(data)
 
@@ -185,12 +185,12 @@ summary(modele_neg)
 
 #1 - Y = publi (s'il y a eu une publication ou pas)
 #Régression logit 
-modele_glm <- glm(publi_dummy ~ status_dummy + ecMaxContribution + 
+modele_probit <- glm(publi_dummy ~ status_dummy + ecMaxContribution + 
                     ecSignatureDate + grouped_community + degree + 
                     project_duration + nb_orga + nb_pays, data = df, 
-                  family = binomial)
+                  binomial(link = probit))
 
-summary(modele_glm)
+summary(modele_probit)
 
 #2 - Y = Nombre de publications
 #a - Regression linéaire 
