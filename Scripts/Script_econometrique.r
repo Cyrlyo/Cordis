@@ -3,7 +3,7 @@
 ######################## I - Nettoyage des donn?es #############################
 #a - Importation du fichier csv
 getwd()
-setwd("../Desktop/Python/Cours/Cordis")
+setwd("../")
 data <- read.csv("./Data/CSV/project_tmp.csv", header = TRUE, sep=",")
 attach(data)
 
@@ -192,11 +192,20 @@ modele_probit <- glm(publi_dummy ~ status_dummy + ecMaxContribution +
 
 summary(modele_probit)
 
+modele_glm <- glm(publi_dummy ~ status_dummy + ecMaxContribution + 
+                    ecSignatureDate + grouped_community + degree + 
+                    project_duration + nb_orga + nb_pays + project_duration**2 +
+                    degree**2 + nb_orga*nb_pays,
+                  data = df, family = binomial)
+
+summary(modele_glm)
+
 #2 - Y = Nombre de publications
 #a - Regression linéaire 
 modele <- lm(nb_publication ~ status_dummy + ecMaxContribution + 
                ecSignatureDate + grouped_community + degree + 
-               project_duration + nb_orga + nb_pays, data = df)
+               project_duration + nb_orga + nb_pays + project_duration**2 +
+               degree**2 + nb_orga*nb_pays , data = df)
 summary(modele)
 
 #b - Regression de Poisson
@@ -204,12 +213,15 @@ library(MASS)
 
 modele_poisson <- glm(nb_publication ~ status_dummy + ecMaxContribution + 
                         ecSignatureDate + grouped_community + degree + 
-                        project_duration + nb_orga + nb_pays, data = df, 
+                        project_duration + nb_orga + nb_pays + project_duration**2 +
+                        degree**2 + nb_orga*nb_pays, data = df, 
                       family = poisson)
 summary(modele_poisson)
 
 #c - Mod?le n?gatif binomial
 modele_neg <- glm.nb(nb_publication ~ status_dummy + ecMaxContribution + 
                        ecSignatureDate + grouped_community + degree + 
-                       project_duration + nb_orga + nb_pays, data = df)
+                       project_duration + nb_orga + nb_pays + project_duration**2 +
+                       degree**2 + nb_orga*nb_pays, data = df)
 summary(modele_neg)
+
